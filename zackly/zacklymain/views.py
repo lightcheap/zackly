@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 # Create your views here.
 def toppage(request):
-    return HttpResponse("トップページです。")
+    #template = loader.get_template('zacklymain/toppage.html')
+    return render(request,'zacklymain/toppage.html')
 
 def main(request):
-    return HttpResponse("メインページです。")
+    #template = loader.get_template('zacklymain/main.html')
+    return render(request,'zacklymain/main.html')
 
 def history(request):
-    return HttpResponse("履歴ページです。")
+    #template = loader.get_template('zacklymain/history.html')
+    return render(request,'zacklymain/history.html')

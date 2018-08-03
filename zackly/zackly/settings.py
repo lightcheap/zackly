@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'zacklymain', # zackly アプリ本体
+    'zacklymain.apps.ZacklymainConfig', # zackly アプリ本体
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'zackly.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,8 +76,14 @@ WSGI_APPLICATION = 'zackly.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'NAME': 'zackly',
+        'USER': 'postgres',
+        'PASSWORD': 'mm358358',
+        'HOST': '127.0.0.1',
+        'POST': '5432',
     }
 }
 
