@@ -14,3 +14,6 @@ def main(request):
 def history(request):
     #template = loader.get_template('zacklymain/history.html')
     return render(request,'zacklymain/history.html')
+
+def edit(request):
+    return render(request,'zacklymain/edit.html')

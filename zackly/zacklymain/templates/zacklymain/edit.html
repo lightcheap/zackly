@@ -12,20 +12,34 @@
     <title>Zackly</title>
 </head>
 <body>
-    <!--トップページ-->
-    <div>
-        <h1>Zacklyのロゴ</h1>
-        <a>新規作成(g)</a>
-        <a>ログイン(g)</a>
+    <!--編集ページ-->
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a>収入</a>
+                    <a>固定</a>
+                    <a>特別</a>
+                    <a href = "{% url 'main' %}">保存</a>
+                </div>                    
+            </div>
+        </div>    
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <hr>
+                    <h4>収入</h4>
+                </div>
+                <div class="col-sm-4">
+                    <hr>
+                    <h4>固定</h4>
+                </div>
+                <div class="col-sm-4">
+                    <hr>
+                    <h4>特別</h4>
+                </div>
+            </div>
     </div>
-    <h2>使えるお金がざっくりわかる！Zackly</h2>
-    <h3>一言説明のちょっと詳しい説明</h3>
-    <div>
-        <a href = "">新規作成</a>
-        <a href = "">ログイン</a>
-    </div>
-    <a href ="{% url 'main' %}">メインページ</a>
-    <a href ="{% url 'history' %}">履歴ページ</a>
+    
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
