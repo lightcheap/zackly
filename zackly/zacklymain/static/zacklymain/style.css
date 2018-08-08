@@ -2,6 +2,29 @@
 ul {
     list-style:none;
     }
+
+input{
+    
+}
 /*  mainpage  */
 
 /*  editpage  */
+.set{
+    width: 100%;
+}
+.itemname{
+    width: 70%;
+}
+.income, .fixedcost, .sp-fixedcost{
+    width:80%;
+    text-align: right;
+    float: right;
+}
+.income, .itemname, .fixedcost, .sp-fixedcost{
+    margin: 3px;
+    margin-bottom: 10px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+
+}
