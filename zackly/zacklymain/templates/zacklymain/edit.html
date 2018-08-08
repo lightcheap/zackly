@@ -12,20 +12,22 @@
     <title>Zackly</title>
 </head>
 <body>
-    <!--編集ページ-->
-    <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <a>収入</a>
-                    <a>固定</a>
-                    <a>特別</a>
-                    <a href = "{% url 'main' %}">保存</a>
-                </div>                    
+    <header><!--ヘッダー固定-->
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a>収入</a>
+                        <a>固定</a>
+                        <a>特別</a>
+                        <a href = "{% url 'main' %}">保存</a>
+                    </div>                    
+                </div>
             </div>
-        </div>    
+    </header>
+    <!--編集ページ-->    
     <div class="container">
             <div class="row">
-                <div class="col-sm-4"><!--収入欄-->
+                <div class="edittop col-sm-4"><!--収入欄-->
                     <hr>
                     <h4>収入</h4>
                     <div class = "set">
@@ -45,7 +47,7 @@
                         <input class = "income" type="number" min = "0" placeholder="金額">
                     </div>
                 </div><!--収入欄ここまで-->
-                <div class="col-sm-4">
+                <div class="edittop col-sm-4">
                     <hr>
                     <h4>固定</h4>
                     <div class = "set">
@@ -73,7 +75,7 @@
                         <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="edittop col-sm-4">
                     <hr>
                     <h4>特別</h4>
                     <div class = "set">
@@ -103,7 +105,9 @@
                 </div>
             </div>
     </div>
-    
+    <footer><!--footer is fixed-->
+        <p>ふったー</p>
+    </footer>    
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

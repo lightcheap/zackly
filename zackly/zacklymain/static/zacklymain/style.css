@@ -9,6 +9,18 @@ input{
 /*  mainpage  */
 
 /*  editpage  */
+header{
+    width: 100%;
+    height: 55px;
+    position: fixed;
+    top:0;
+    z-index: 10;
+    background-color: aqua;
+}
+
+.edittop{
+    padding-top: 40px;
+}
 .set{
     width: 100%;
 }
@@ -27,4 +39,14 @@ input{
     border-right: none;
     border-left: none;
 
+}
+
+/*  footer  */
+footer{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    background-color: aqua;
 }
