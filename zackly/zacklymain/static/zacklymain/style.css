@@ -15,11 +15,27 @@ header{
     position: fixed;
     top:0;
     z-index: 10;
-    background-color: aqua;
+    background-color: #66BAB7;
+}
+
+#syunyu{
+    margin-top: -55px;
+    padding-top: 55px;
+}
+
+#kotei{
+    margin-top: -55px;
+    padding-top: 55px;
+}
+
+#tokubetu{
+    margin-top: -55px;
+    padding-top: 55px;
 }
 
 .edittop{
-    padding-top: 40px;
+
+    padding-top: 45px;
 }
 .set{
     width: 100%;
@@ -48,5 +64,5 @@ footer{
     position: fixed;
     bottom: 0;
     z-index: 10;
-    background-color: aqua;
+    background-color: #66BAB7;
 }

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 # Create your views here.
+# ここのビュー関数をクラスベースで書き直す
 def toppage(request):
     #template = loader.get_template('zacklymain/toppage.html')
     return render(request,'zacklymain/toppage.html')

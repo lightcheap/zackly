@@ -31,10 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.admin', #管理サイトを使うのに必要
+    'django.contrib.auth', #管理サイトを使うのに必要
+    'django.contrib.contenttypes', #管理サイトを使うのに必要
+    'django.contrib.sessions', #管理サイトを使うのに必要
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zacklymain.apps.ZacklymainConfig', # zackly アプリ本体
@@ -45,8 +45,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware', #管理サイトを使うのに必要
+    'django.contrib.messages.middleware.MessageMiddleware', #管理サイトを使うのに必要
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -61,8 +61,8 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.auth.context_processors.auth', #管理サイトを使うのに必要
+                'django.contrib.messages.context_processors.messages', #管理サイトを使うのに必要
             ],
         },
     },
