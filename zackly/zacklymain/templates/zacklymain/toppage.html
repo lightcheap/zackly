@@ -20,12 +20,18 @@
     </div>
     <h2>使えるお金がざっくりわかる！Zackly</h2>
     <h3>一言説明のちょっと詳しい説明</h3>
+    <p>{{ hour }}</p>
     <div>
         <a href = "">新規作成</a>
         <a href = "">ログイン</a>
     </div>
-    <a href ="{% url 'main' %}">メインページ</a>
-    <a href ="{% url 'history' %}">履歴ページ</a>
+    <a href ="{% url 'zacklymain:main' %}">メインページ</a>
+    <a href ="{% url 'zacklymain:history' %}">履歴ページ</a>
+    
+    <form action="" method="get">
+        <label>名前:<input type="text" size="20" name="your_name"></label>
+        <input type="submit" value="送信">
+    </form>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

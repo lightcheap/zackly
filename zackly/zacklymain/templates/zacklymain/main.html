@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <a>＜</a>
-                <h1>８月</h1>
+                <h1>{{ month }}</h1>
                 <a>＞</a>
                 <hr>
             </div>
@@ -30,9 +30,12 @@
     </div>
     <div>
         <div>
-            <a href ="{% url 'edit' %}">編集</a>
+            <a href ="{% url 'zacklymain:edit' %}">編集</a>
             <p>収入</p>
             <input/><!--ほんとはここに金額合計が入る-->
+            {% if income %}
+                {{ income }}
+            {% endif %}
         </div>
         <div>
             <p>固定支出</p>
@@ -43,8 +46,8 @@
             <input/><!--ほんとはここに金額合計が入る-->
         </div>
     </div>
-    <p><a href ="{% url 'history' %}">履歴ページ</a></p>
-    <a href ="{% url 'toppage' %}">トップページ</a>
+    <p><a href ="{% url 'zacklymain:history' %}">履歴ページ</a></p>
+    <a href ="{% url 'zacklymain:toppage' %}">トップページ</a>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

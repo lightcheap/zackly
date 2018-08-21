@@ -19,7 +19,7 @@
                         <a href="#syunyu">収入</a>
                         <a href="#kotei">固定</a>
                         <a href="#tokubetu">特別</a>
-                        <a href = "{% url 'main' %}">保存</a>
+                        <a href = "{% url 'zacklymain:main' %}">保存</a>
                     </div>                    
                 </div>
             </div>
@@ -30,22 +30,12 @@
                 <div class="edittop col-sm-4"><!--収入欄-->
                     <hr>
                     <h4 id = "syunyu">収入</h4>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="どんな収入？">
-                        <input class = "income" type="number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="どんな収入？">
-                        <input class = "income" type="number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="どんな収入？">
-                        <input class = "income" type="number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="どんな収入？">
-                        <input class = "income" type="number" min = "0" placeholder="金額">
-                    </div>
+                    
+                    <form action ="{% url 'zacklymain:create' %}" method = "post">
+                        {% csrf_token %}
+                        {{ form|bootstrap_horizontal }}
+                        <input type = "submit" value = "保存">
+                    </form>
                 </div><!--収入欄ここまで-->
                 <div class="edittop col-sm-4">
                     <hr>
