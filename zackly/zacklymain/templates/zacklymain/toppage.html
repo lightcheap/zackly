@@ -28,8 +28,9 @@
     <a href ="{% url 'zacklymain:main' %}">メインページ</a>
     <a href ="{% url 'zacklymain:history' %}">履歴ページ</a>
     
-    <form action="" method="get">
-        <label>名前:<input type="text" size="20" name="your_name"></label>
+    <form action="/your-name/" method="post">
+        {% csrf_token %}
+        {{ form }}
         <input type="submit" value="送信">
     </form>
     <!--bootstrap CDN JS、Popper.js、jQuery-->

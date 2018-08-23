@@ -31,9 +31,9 @@
                     <hr>
                     <h4 id = "syunyu">収入</h4>
                     
-                    <form action ="{% url 'zacklymain:create' %}" method = "post">
+                    <form action ="/history/" method = "POST">
                         {% csrf_token %}
-                        {{ form|bootstrap_horizontal }}
+                        {{ form.as_p }}
                         <input type = "submit" value = "保存">
                     </form>
                 </div><!--収入欄ここまで-->

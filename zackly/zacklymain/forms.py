@@ -5,4 +5,7 @@ from .models import Income
 class incomeFormAdd(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['income','amountOfIncome']
+        fields = ['item','amountOfIncome']
+
+class NameForm(forms.Form):
+    your_name = forms.CharField(label='Yourname', max_length = 100)
