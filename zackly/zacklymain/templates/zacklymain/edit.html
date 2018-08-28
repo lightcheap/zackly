@@ -12,7 +12,7 @@
     <title>Zackly</title>
 </head>
 <body>
-    <header><!--ヘッダー固定-->
+    <header><!--ヘッダー。固定-->
         <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -31,84 +31,30 @@
                     <hr>
                     <h4 id = "syunyu">収入</h4>
                     
-                    <form action ="/history/" method = "POST">
+                    <form action ="/edit/" method = "POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input type = "submit" value = "保存">
-                    </form>
+                                          
+                    
                 </div><!--収入欄ここまで-->
-                <div class="edittop col-sm-4">
+                <div class="edittop col-sm-4"><!--固定費-->
                     <hr>
                     <h4 id = "kotei">固定</h4>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                </div>
-                <div class="edittop col-sm-4">
+                    
+                        {% csrf_token %}
+                        {{ form2.as_p }}
+                        
+                                           
+                </div><!--固定費ここまで-->
+                <div class="edittop col-sm-4"><!--特別枠-->
                     <hr>
                     <h4 id = "tokubetu">特別</h4>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                    <div class = "set">
-                        <input class = "itemname" type = "text" placeholder="選択式にする">
-                        <input class = "sp-fixedcost" type = "number" min = "0" placeholder="金額">
-                    </div>
-                </div>
+                    
+                        {% csrf_token %}
+                        {{ form3.as_p }}
+                        <input type = "submit" value = "保存">
+                    </form>
+                </div><!--特別枠ここまで-->
             </div>
     </div>
     <footer><!--footer is fixed-->

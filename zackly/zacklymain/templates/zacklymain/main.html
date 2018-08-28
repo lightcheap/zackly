@@ -25,25 +25,28 @@
     </div>
     <div>
         <p>使えるお金</p>
-        <input/><!--ほんとはここに金額合計が入る-->
+        
         <hr>
     </div>
     <div>
         <div>
             <a href ="{% url 'zacklymain:edit' %}">編集</a>
             <p>収入</p>
-            <input/><!--ほんとはここに金額合計が入る-->
-            {% if income %}
-                {{ income }}
-            {% endif %}
+            
+                {{ soa }}                
+            
         </div>
         <div>
             <p>固定支出</p>
-            <input/><!--ほんとはここに金額合計が入る-->
+            {% if sof %}
+                {{ sof }}
+            {% endif %}
         </div>
         <div>
             <p>特別支出</p>
-            <input/><!--ほんとはここに金額合計が入る-->
+            {% if sosf %}
+                {{ sosf }}
+            {% endif %}
         </div>
     </div>
     <p><a href ="{% url 'zacklymain:history' %}">履歴ページ</a></p>
