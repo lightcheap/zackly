@@ -25,7 +25,7 @@
     </div>
     <div>
         <p>使えるお金</p>
-        
+            {{ income }}
         <hr>
     </div>
     <div>
@@ -33,19 +33,19 @@
             <a href ="{% url 'zacklymain:edit' %}">編集</a>
             <p>収入</p>
             
-                {{ soa }}                
+                {{ soa.sx }}                
             
         </div>
         <div>
             <p>固定支出</p>
             {% if sof %}
-                {{ sof }}
+                {{ sof.sx }}
             {% endif %}
         </div>
         <div>
             <p>特別支出</p>
             {% if sosf %}
-                {{ sosf }}
+                {{ sosf.sx }}
             {% endif %}
         </div>
     </div>
