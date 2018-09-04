@@ -13,26 +13,25 @@
 </head>
 <body>
     <!--トップページ-->
-    <div>
-        <h1>Zackly</h1>
-        <a>新規作成(g)</a>
-        <a>ログイン(g)</a>
+    <div class = "container toplogo">
+        <div class = "globalManuPC">
+            <h1>Zackly</h1>
+            <ul>
+            <li><a>新規作成(g)</a></li>
+            <li><a>ログイン(g)</a></li>
+            </ul>           
+        </div>
     </div>
-    <h2>使えるお金がざっくりわかる！Zackly</h2>
-    <h3>一言説明のちょっと詳しい説明</h3>
-    <p>{{ hour }}</p>
-    <div>
-        <a href = "">新規作成</a>
-        <a href = "">ログイン</a>
+    <div class = "container serviceOverView">
+        <h2 class = "description">使えるお金がざっくりわかる！Zackly</h2>
+        <h3 class = "description">一言説明のちょっと詳しい説明</h3>
+        <p class = "kari">{{ hour }}</p>
     </div>
-    <a href ="{% url 'zacklymain:main' %}">メインページ</a>
-    <a href ="{% url 'zacklymain:history' %}">履歴ページ</a>
-    
-    <form action="/your-name/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="送信">
-    </form>
+
+    <div class = "signUp">
+        <a href ="{% url 'zacklymain:main' %}">メインページ</a>
+        <a href ="{% url 'zacklymain:history' %}">履歴ページ</a>
+    </div>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

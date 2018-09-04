@@ -22,10 +22,10 @@ class top(View):
 class main(View):
     def get(self, request, *args, **kwargs):
         amountOfIncome = Income.objects.values_list('amountOfIncome',flat = True)
-        sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome'))
-        #sumOfAmount = Income.objects.aggregate(Sum('amountOfIncome')) # 収入の合計
+        sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome')) # 収入の合計
         sumOfFixed = FixedCost.objects.aggregate(sx = Sum('amountOfFixedCost')) # 固定費の合計
         sumOfSpFixed = SpFixedCost.objects.aggregate(sx = Sum('amountOfSpFixedCost')) # 特別枠の合計
+        #moneyToUse = Model.objects.aggregate(Sum(sumOfAmount - sumOfFixed - sumOfSpFixed))
         
         d = {
             'month':datetime.now().month,
