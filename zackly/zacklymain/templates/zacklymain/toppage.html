@@ -9,28 +9,33 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--static file css-->
     <link rel="stylesheet" type="text/css" href="{% static 'zacklymain/style.css' %}" />
+    <!--font Awesome CDN css-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Zackly</title>
 </head>
 <body>
     <!--トップページ-->
+    <div class = "container topDesc">
+        <h1>使えるお金がざっくりわかる!</h1>
+    </div>
     <div class = "container toplogo">
         <div class = "globalManuPC">
-            <h1>Zackly</h1>
-            <ul>
+            <img class = "spLogo" src = "{% static 'zacklymain/Zacklyロゴ.png' %}"/>
+            <ul class = "spHidden">
             <li><a>新規作成(g)</a></li>
             <li><a>ログイン(g)</a></li>
             </ul>           
         </div>
     </div>
     <div class = "container serviceOverView">
-        <h2 class = "description">使えるお金がざっくりわかる！Zackly</h2>
-        <h3 class = "description">一言説明のちょっと詳しい説明</h3>
+        <h2 class = "description spHidden">使えるお金がざっくりわかる！Zackly</h2>
+        <h3 class = "description spSpace">家賃、電気代など<br>残す必要のあるお金以外の<br>使えるお金をカンタンに<br>知ることが出来るサービスです。</h3>
         <p class = "kari">{{ hour }}</p>
     </div>
 
     <div class = "signUp">
-        <a href ="{% url 'zacklymain:main' %}">メインページ</a>
-        <a href ="{% url 'zacklymain:history' %}">履歴ページ</a>
+        <p><a href ="{% url 'zacklymain:main' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p>
+        <p><a href ="{% url 'zacklymain:history' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p>
     </div>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

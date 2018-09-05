@@ -1,11 +1,15 @@
 /* default  */
+body{
+    background-color:#ffffff;
+}
+
 ul {
     list-style:none;
     }
 
 /*  toppage  */
 .toplogo{
-    background-color: green;
+
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -82,10 +86,35 @@ footer{
 /*　スマホ用　*/
 @media screen and (max-width: 480px){
     /*  toppage  */
+    .topDesc{
+        background-color: #4CAF50;
+    }
+
+    .topDesc h1{        
+        text-align: center;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 700;
+        padding: 20px;
+    }
+
+    .spLogo{
+        width:100%;
+        margin:0 auto;
+    }
+
     .globalManuPC h1{
         text-align: center;
         width: 100%;
         margin: 0 auto;
+    }
+
+    .spHidden{
+        display:none;
+    }
+    
+    .spSpace{
+        padding:20px;
     }
 
     .serviceOverView h2{
@@ -94,19 +123,30 @@ footer{
 
     .serviceOverView h3{
         font-size: 20px;
+        font-weight: 700;
+        line-height: 1.7em;
+        color: #212121;
     }
 
     .globalManuPC li{
-        display: none;
     }
 
     .signUp{
+        display: flex;
         text-align: center;
-        background-color: green;
+        background-color: #4CAF50;
         width: 100%;
-        height: 40px;
+        height: 60px;
         position: fixed;
         bottom: 0px;
+    }
+
+    .signUp a{
+        
+        color: #ffffff;
+        line-height: 1.5em;
+        margin: 10px;
+        padding: 10px;
     }
 
 }
