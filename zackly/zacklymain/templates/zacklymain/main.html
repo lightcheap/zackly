@@ -9,43 +9,43 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!--static file css-->
         <link rel="stylesheet" type="text/css" href="{% static 'zacklymain/style.css' %}" />
+        <!--font Awesome CDN css-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <title>Zackly</title>
 </head>
 <body>
     <!--メインページ-->
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <a>＜</a>
-                <h1>{{ month }}</h1>
-                <a>＞</a>
-                <hr>
-            </div>
+            <div class="mainTopMonth">
+                <div class="col4 frontAndBackB"><a><span class = "fabButton">＜</span></a></div>
+                <div class="col4"><h1>{{ month }}</h1></div>
+                <div class="col4 frontAndBackF"><a><span class = "fabButton">＞</span></a></div>
+            </div>            
         </div>
     </div>
-    <div>
-        <p>使えるお金</p>
-            <p>000000</p>
-        <hr>
+    <div class = "cuaContainer">
+        <h2>使えるお金</h2>
+        <p class = "canUseAmount">1234567890 円</p>        
     </div>
-    <div>
+    <hr class = "myhr">    
+    <div class = "balanceSheet">
         <div>
-            <a href ="{% url 'zacklymain:edit' %}">編集</a>
-            <p>収入</p>
-            
-                {{ soa.sx }}                
+            <a class = "editbutton" href ="{% url 'zacklymain:edit' %}"><i class="far fa-edit fa-2x editAmount"></i></a>
+            <h3>収入 合計</h3>
+            <p class = "totalIncome">{{ soa.sx }} 円</p>                 
             
         </div>
         <div>
-            <p>固定支出</p>
+            <h3>固定支出 合計</h3>
             {% if sof %}
-                {{ sof.sx }}
+                <p class = "totalFixed">{{ sof.sx }} 円</p>
             {% endif %}
         </div>
         <div>
-            <p>特別支出</p>
+            <h3>特別支出 合計</h3>
             {% if sosf %}
-                {{ sosf.sx }}
+                <p class = "totalSp">{{ sosf.sx }} 円</p>
             {% endif %}
         </div>
     </div>

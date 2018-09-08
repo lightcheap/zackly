@@ -30,12 +30,30 @@
     <div class = "container serviceOverView">
         <h2 class = "description spHidden">使えるお金がざっくりわかる！Zackly</h2>
         <h3 class = "description spSpace">家賃、電気代など<br>残す必要のあるお金以外の<br>使えるお金をカンタンに<br>知ることが出来るサービスです。</h3>
-        <p class = "kari">{{ hour }}</p>
     </div>
-
-    <div class = "signUp">
-        <p><a href ="{% url 'zacklymain:main' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p>
-        <p><a href ="{% url 'zacklymain:history' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p>
+    <!--ZACKLYの３つの特徴-->
+    <div class="container">
+        <div class = "subjectTop">
+            <h2>ZACKLY の特徴</h2>
+        </div>
+        <div class = "threeFuture">
+            <h3>とにかく、シンプル。</h3>
+            <p>説明文説明文</p>
+        </div>
+        <div class = "threeFuture">
+            <h3>2つ目の特徴</h3>
+            <p>説明文説明文</p>
+        </div>
+        <div class = "threeFuture">
+            <h3>3つ目の特徴</h3>
+            <p>説明文説明文</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class = "row signUp">
+            <div class="col"><p><a href ="{% url 'zacklymain:main' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p></div>
+            <div class="col"><p><a href ="{% url 'zacklymain:history' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p></div>
+        </div>
     </div>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

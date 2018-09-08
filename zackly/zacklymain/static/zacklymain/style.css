@@ -7,31 +7,118 @@ ul {
     list-style:none;
     }
 
+.myhr{
+    margin: 0px;
+    border-top: 2px solid rgba(0,0,0,.1);
+}
+
+.balanceSheet{
+    padding: 10px 30px;
+    color:#424242;
+}
+
 /*  toppage  */
 .toplogo{
-
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .description{
     text-align: center;
+    color:#424242;
 }
 
 .kari{
     text-align: center;
 }
 
-/*  mainpage  */
+/*  mainpage  ------------------------------*/
+.mainTopMonth{
+    width: 100%;
+    margin: 0 auto;
+    background-color: #388e3c;
+    text-align: center;
+    display: flex;
+}
 
-/*  editpage  */
+.frontAndBackF{
+    font-size: 2em;
+    font-weight: 800;
+    transition:0.2s;
+}
+
+.frontAndBackB{
+    font-size: 2em;
+    font-weight: 800;
+    transition:0.2s;
+}
+
+.frontAndBackF:active{
+    padding: 0px 0px 0px 10px ;
+    
+}
+
+.frontAndBackB:active{
+    padding: 0px 10px 0px 0px ;
+}
+
+.cuaContainer{
+    background-color: #4CAF50;
+    padding: 30px 10px;
+    z-index: 2px;
+    box-shadow: 0px 2px 5px #757575;
+}
+
+.canUseAmount{
+    font-size: 35px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.editAmount{
+    background-color: #ffc107;
+    box-shadow: 0px 2px 15px #757575;
+    color: white;
+    text-align: right;
+    padding: 15px;
+    border-radius: 50%;
+    transition:0.2s;
+}
+
+.editAmount:active{
+    box-shadow: 0 0 5px #757575;
+}
+
+.editbutton{
+    position: fixed;
+    z-index: 10;
+    right: 10px;
+    
+}
+
+.totalIncome{
+    font-size: 30px;
+    text-align: center
+}
+
+.totalFixed{
+    font-size: 30px;
+    text-align: center
+}
+
+.totalSp{
+    font-size: 30px;
+    text-align: center
+}
+
+/*  editpage  ----------------------------------------*/
 header{
     width: 100%;
     height: 55px;
     position: fixed;
     top:0;
     z-index: 10;
-    background-color: #66BAB7;
+    background-color: #4CAF50;
 }
 
 #syunyu{
@@ -50,7 +137,6 @@ header{
 }
 
 .edittop{
-
     padding-top: 45px;
 }
 .set{
@@ -70,7 +156,6 @@ header{
     border-top: none;
     border-right: none;
     border-left: none;
-
 }
 
 /*  footer  */
@@ -80,7 +165,7 @@ footer{
     position: fixed;
     bottom: 0;
     z-index: 10;
-    background-color: #66BAB7;
+    background-color: #4CAF50;
 }
 
 /*　スマホ用　*/
@@ -95,7 +180,7 @@ footer{
         color: #fff;
         font-size: 22px;
         font-weight: 700;
-        padding: 20px;
+        padding: 20px 0px 20px 0px;
     }
 
     .spLogo{
@@ -128,25 +213,52 @@ footer{
         color: #212121;
     }
 
-    .globalManuPC li{
-    }
-
-    .signUp{
-        display: flex;
+    .signUp{        
         text-align: center;
         background-color: #4CAF50;
+        box-shadow: 0px -2px 15px #757575;
         width: 100%;
         height: 60px;
         position: fixed;
         bottom: 0px;
     }
 
-    .signUp a{
-        
+    .signUp a{        
         color: #ffffff;
-        line-height: 1.5em;
-        margin: 10px;
-        padding: 10px;
+        text-decoration: none;
+        margin: 5px;
+        padding: 10px 0px 10px 0px;
     }
 
+    .col{
+        transition:.7s;
+    }
+   
+    .col:hover{
+        background-color: #388e3c;
+    }
+
+    .col:active{
+        box-shadow: 0 -1px 4px 2px #212121 inset;
+    }
+
+    .col p{
+        line-height: 3.9em;
+    }
+
+    .subjectTop h2{
+        font-weight:bold;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .threeFuture{
+        text-align: center;
+    }
+ 
+    /* mainpage */
+    .col4{
+        
+        width: 33%;
+    }
 }
