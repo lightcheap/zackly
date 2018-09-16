@@ -5,7 +5,7 @@ from .models import Income, FixedCost, SpFixedCost
 class incomeFormAdd(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['item','amountOfIncome']
+        fields = ['item1','amountOfIncome1']
 
 
 class fixedCostFormAdd(forms.ModelForm):

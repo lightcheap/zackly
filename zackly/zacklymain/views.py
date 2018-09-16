@@ -21,8 +21,8 @@ class top(View):
 #　メインページ
 class main(View):
     def get(self, request, *args, **kwargs):
-        amountOfIncome = Income.objects.values_list('amountOfIncome',flat = True)
-        sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome')) # 収入の合計
+        amountOfIncome = Income.objects.values_list('amountOfIncome1',flat = True)
+        sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome1')) # 収入の合計
         sumOfFixed = FixedCost.objects.aggregate(sx = Sum('amountOfFixedCost')) # 固定費の合計
         sumOfSpFixed = SpFixedCost.objects.aggregate(sx = Sum('amountOfSpFixedCost')) # 特別枠の合計
         #moneyToUse = Model.objects.aggregate(Sum(sumOfAmount - sumOfFixed - sumOfSpFixed))
@@ -40,7 +40,7 @@ class main(View):
 #　履歴ページ
 class history(View):
     def get(self, request, *args, **kwargs):
-        income = Income.objects.values('item','amountOfIncome') 
+        income = Income.objects.values('item1','amountOfIncome1') 
         fixedCost = FixedCost.objects.values('item','amountOfFixedCost')
         d = {
             'income': income,

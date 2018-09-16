@@ -9,19 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--static file css-->
     <link rel="stylesheet" type="text/css" href="{% static 'zacklymain/style.css' %}" />
+    <!--font Awesome CDN css-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Zackly</title>
 </head>
 <body>
     <header><!--ヘッダー。固定-->
         <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="#syunyu">収入</a>
-                        <a href="#kotei">固定</a>
-                        <a href="#tokubetu">特別</a>
-                        <a href = "{% url 'zacklymain:main' %}">保存</a>
-                    </div>                    
-                </div>
+                
             </div>
     </header>
     <!--編集ページ-->    
@@ -58,7 +53,14 @@
             </div>
     </div>
     <footer><!--footer is fixed-->
-        <p>ふったー</p>
+        <div class="row">
+            <div class="col12">
+                <div class = "editGlobalMenu"><a href="#syunyu">収入</a></div>
+                <div class = "editGlobalMenu"><a href="#kotei">固定</a></div>
+                <div class = "editGlobalMenu"><a href="#tokubetu">特別</a></div>
+                <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' %}">保存</a></div>
+            </div>                    
+        </div>
     </footer>    
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
