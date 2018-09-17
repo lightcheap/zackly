@@ -28,8 +28,10 @@
                     
                     <form action ="/edit/" method = "POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                                          
+                        {{ formOfIncome.as_p }}
+                        {{ formOfIncome2.as_p }}
+                        {{ formOfIncome3.as_p }}
+                        {{ formOfIncome4.as_p }}
                     
                 </div><!--収入欄ここまで-->
                 <div class="edittop col-sm-4"><!--固定費-->
@@ -37,8 +39,8 @@
                     <h4 id = "kotei">固定</h4>
                     
                         {% csrf_token %}
-                        {{ form2.as_p }}
-                        
+                        {{ formOfFixedCost.as_p }}
+                        {{ formOfFixedCost2.as_p }}
                                            
                 </div><!--固定費ここまで-->
                 <div class="edittop col-sm-4"><!--特別枠-->

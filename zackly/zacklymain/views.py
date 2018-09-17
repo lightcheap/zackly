@@ -4,7 +4,8 @@ from django.template import loader
 from datetime import datetime
 from django.views import View # 基本汎用クラスビューで使う
 from .models import Income, FixedCost, SpFixedCost # 定義したモデル
-from .forms import incomeFormAdd, fixedCostFormAdd, SpFixedCostFormsAdd #定義したフォーム
+#定義したフォーム
+from .forms import incomeFormAdd, incomeFormAdd2, incomeFormAdd3, incomeFormAdd4, fixedCostFormAdd, fixedCostFormAdd2, SpFixedCostFormsAdd
 from django.db.models import Avg, Sum
 
 #　トップページ
@@ -23,7 +24,7 @@ class main(View):
     def get(self, request, *args, **kwargs):
         amountOfIncome = Income.objects.values_list('amountOfIncome1',flat = True)
         sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome1')) # 収入の合計
-        sumOfFixed = FixedCost.objects.aggregate(sx = Sum('amountOfFixedCost')) # 固定費の合計
+        sumOfFixed = FixedCost.objects.aggregate(sx = Sum('amountOfFixedCost1')) # 固定費の合計
         sumOfSpFixed = SpFixedCost.objects.aggregate(sx = Sum('amountOfSpFixedCost')) # 特別枠の合計
         #moneyToUse = Model.objects.aggregate(Sum(sumOfAmount - sumOfFixed - sumOfSpFixed))
         
@@ -41,7 +42,7 @@ class main(View):
 class history(View):
     def get(self, request, *args, **kwargs):
         income = Income.objects.values('item1','amountOfIncome1') 
-        fixedCost = FixedCost.objects.values('item','amountOfFixedCost')
+        fixedCost = FixedCost.objects.values('item','amountOfFixedCost1')
         d = {
             'income': income,
             'fixedCost' : fixedCost,
@@ -70,14 +71,22 @@ class edit(View):
 
         #　収入のフォームのインスタンスを作成
         incomeForm = incomeFormAdd( request.POST, instance = modelIncome)
+        incomeForm2 = incomeFormAdd2( request.POST, instance = modelIncome)
+        incomeForm3 = incomeFormAdd3( request.POST, instance = modelIncome )
+        incomeForm4 = incomeFormAdd4( request.POST, instance = modelIncome )
         #　固定費のフォームのインスタンス
         fixedCostForm = fixedCostFormAdd( request.POST, instance = modelFixedCost )
+        fixedCostForm2 = fixedCostFormAdd2( request.POST, instance = modelFixedCost )
         # 特別費のフォームのインスタンス
         SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = modelSpFixedCost )
 
         dict = {
-            'form' : incomeForm,
-            'form2' : fixedCostForm,
+            'formOfIncome' : incomeForm,
+            'formOfIncome2': incomeForm2,
+            'formOfIncome3': incomeForm3,
+            'formOfIncome4': incomeForm4,
+            'formOfFixedCost' : fixedCostForm,
+            'formOfFixedCost2': fixedCostForm2,
             'form3' : SpFixedCostForm,
         }
 
@@ -92,7 +101,7 @@ class edit(View):
         # SpFixedCostのModelを作成する
         modelSpFixedCost = SpFixedCost()
 
-        # フォーム生成
+        # 収入フォームのインスタンス
         editForm = incomeFormAdd( request.POST, instance = modelIncome)
         #　固定費のフォームのインスタンス
         fixedCostForm = fixedCostFormAdd( request.POST, instance = modelFixedCost )
