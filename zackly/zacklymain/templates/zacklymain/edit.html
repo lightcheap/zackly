@@ -29,9 +29,6 @@
                     <form action ="/edit/" method = "POST">
                         {% csrf_token %}
                         {{ formOfIncome.as_p }}
-                        {{ formOfIncome2.as_p }}
-                        {{ formOfIncome3.as_p }}
-                        {{ formOfIncome4.as_p }}
                     
                 </div><!--収入欄ここまで-->
                 <div class="edittop col-sm-4"><!--固定費-->
@@ -40,7 +37,6 @@
                     
                         {% csrf_token %}
                         {{ formOfFixedCost.as_p }}
-                        {{ formOfFixedCost2.as_p }}
                                            
                 </div><!--固定費ここまで-->
                 <div class="edittop col-sm-4"><!--特別枠-->
@@ -48,9 +44,10 @@
                     <h4 id = "tokubetu">特別</h4>
                     
                         {% csrf_token %}
-                        {{ form3.as_p }}
+                        {{ formOfSpFixedCost.as_p }}
+                        
                         <input type = "submit" value = "保存">
-                    </form>
+                        </form>
                 </div><!--特別枠ここまで-->
             </div>
     </div>
@@ -61,6 +58,7 @@
                 <div class = "editGlobalMenu"><a href="#kotei">固定</a></div>
                 <div class = "editGlobalMenu"><a href="#tokubetu">特別</a></div>
                 <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' %}">保存</a></div>
+                
             </div>                    
         </div>
     </footer>    

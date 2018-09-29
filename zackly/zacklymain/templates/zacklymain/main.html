@@ -25,25 +25,25 @@
         </div>
     </div>
     <div class = "cuaContainer">
-        <h2>使えるお金</h2>
-        <p class = "canUseAmount">1234567890 円</p>        
+        <h2>使えるお金<span class = "mainZacklyButtom">Zackly</span></h2>
+            <p class = "canUseAmount">{{ income.sx }} 円</p>        
     </div>
     <hr class = "myhr">    
     <div class = "balanceSheet">
         <div>
             <a class = "editbutton" href ="{% url 'zacklymain:edit' %}"><i class="far fa-edit fa-2x editAmount"></i></a>
-            <h3>収入 合計</h3>
+            <h3>収入 合計<span class = "mainZacklyButtom">Zackly</span></h3>
             <p class = "totalIncome">{{ soa.sx }} 円</p>                 
             
         </div>
         <div>
-            <h3>固定支出 合計</h3>
+            <h3>固定支出 合計<span class = "mainZacklyButtom">Zackly</span></h3>
             {% if sof %}
                 <p class = "totalFixed">{{ sof.sx }} 円</p>
             {% endif %}
         </div>
         <div>
-            <h3>特別支出 合計</h3>
+            <h3>特別支出 合計<span class = "mainZacklyButtom">Zackly</span></h3>
             {% if sosf %}
                 <p class = "totalSp">{{ sosf.sx }} 円</p>
             {% endif %}

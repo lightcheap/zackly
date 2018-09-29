@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import Income, FixedCost, SpFixedCost
+from .models import balanceOfPayment
 
 # Register your models here.
-admin.site.register(Income)
-admin.site.register(FixedCost)
-admin.site.register(SpFixedCost)
+admin.site.register(balanceOfPayment)

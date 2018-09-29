@@ -1,44 +1,28 @@
 # Zacklyのフォーム関係
 from django import forms
-from .models import Income, FixedCost, SpFixedCost
+from zacklymain.models import balanceOfPayment
 
 #収入記入欄１個目
 class incomeFormAdd(forms.ModelForm):
     class Meta:
-        model = Income
-        fields = ['item1','amountOfIncome1']
+        model = balanceOfPayment
+        fields = ['incomeName1','amountOfIncome1','incomeName2','amountOfIncome2',
+        'incomeName3','amountOfIncome3','incomeName4','amountOfIncome4']
 
-# 収入記入欄２個目
-class incomeFormAdd2(forms.ModelForm):
-    class Meta:
-        model = Income
-        fields = ['item2','amountOfIncome2']
-
-# 収入記入欄３個目
-class incomeFormAdd3(forms.ModelForm):
-    class Meta:
-        model = Income
-        fields = ['item3','amountOfIncome3']
-
-# 収入記入欄４個目
-class incomeFormAdd4(forms.ModelForm):
-    class Meta:
-        model = Income
-        fields = ['item4','amountOfIncome4']
 
 #固定費の記入欄１個目-------------------------------------------------
 class fixedCostFormAdd(forms.ModelForm):
     class Meta:
-        model = FixedCost
-        fields = ['item1','amountOfFixedCost1']
+        model = balanceOfPayment
+        fields = ['fixedCostName1','amountOfFixedCost1','fixedCostName2','amountOfFixedCost2',
+        'fixedCostName3','amountOfFixedCost3','fixedCostName4','amountOfFixedCost4']
 
-class fixedCostFormAdd2(forms.ModelForm):
-    class Meta:
-        model = FixedCost
-        fields = ['item2','amountOfFixedCost2']
 
 # 特別支出----------------------------------------------------------
 class SpFixedCostFormsAdd(forms.ModelForm):
     class Meta:
-        model = SpFixedCost
-        fields = ['item','amountOfSpFixedCost']
+        model = balanceOfPayment
+        fields = ['spFixedCostName1','amountOfSpFixedCost1','spFixedCostName2','amountOfSpFixedCost2',
+        'spFixedCostName3','amountOfSpFixedCost3','spFixedCostName4','amountOfSpFixedCost4']
+
+        

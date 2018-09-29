@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from datetime import datetime
 from django.views import View # 基本汎用クラスビューで使う
-from .models import Income, FixedCost, SpFixedCost # 定義したモデル
+from zacklymain.models import balanceOfPayment # 定義したモデル
 #定義したフォーム
-from .forms import incomeFormAdd, incomeFormAdd2, incomeFormAdd3, incomeFormAdd4, fixedCostFormAdd, fixedCostFormAdd2, SpFixedCostFormsAdd
+from zacklymain.forms import incomeFormAdd, fixedCostFormAdd, SpFixedCostFormsAdd
 from django.db.models import Avg, Sum
 
 #　トップページ
@@ -22,11 +22,16 @@ class top(View):
 #　メインページ
 class main(View):
     def get(self, request, *args, **kwargs):
-        amountOfIncome = Income.objects.values_list('amountOfIncome1',flat = True)
-        sumOfAmount = Income.objects.aggregate(sx = Sum('amountOfIncome1')) # 収入の合計
-        sumOfFixed = FixedCost.objects.aggregate(sx = Sum('amountOfFixedCost1')) # 固定費の合計
-        sumOfSpFixed = SpFixedCost.objects.aggregate(sx = Sum('amountOfSpFixedCost')) # 特別枠の合計
-        #moneyToUse = Model.objects.aggregate(Sum(sumOfAmount - sumOfFixed - sumOfSpFixed))
+        # 収入の合計
+        sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+        # 固定費の合計
+        sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+        # 特別枠の合計
+        sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+        amountOfIncome = balanceOfPayment.objects.aggregate(sx = sx1 - sx2 - sx3 )
+        sumOfAmount = balanceOfPayment.objects.aggregate(sx = sx1 )
+        sumOfFixed = balanceOfPayment.objects.aggregate(sx = sx2 )
+        sumOfSpFixed = balanceOfPayment.objects.aggregate(sx = sx3 ) 
         
         d = {
             'month':datetime.now().month,
@@ -34,6 +39,7 @@ class main(View):
             'soa': sumOfAmount,
             'sof': sumOfFixed,
             'sosf': sumOfSpFixed,
+            #'mtu': moneyToUse,
         }
         #template = loader.get_template('zacklymain/main.html')
         return render(request,'zacklymain/main.html', d)
@@ -41,8 +47,8 @@ class main(View):
 #　履歴ページ
 class history(View):
     def get(self, request, *args, **kwargs):
-        income = Income.objects.values('item1','amountOfIncome1') 
-        fixedCost = FixedCost.objects.values('item','amountOfFixedCost1')
+        income = balanceOfPayment.objects.values('incomeName1','amountOfIncome1') 
+        fixedCost = balanceOfPayment.objects.values('fixedCostName1','amountOfFixedCost1')
         d = {
             'income': income,
             'fixedCost' : fixedCost,
@@ -52,7 +58,7 @@ class history(View):
         return render(request,'zacklymain/history.html', d)
 
     def post(self, request, *args, **kwargs):
-        income = Income.objects.values('item','amountOfIncome')
+        income = balanceOfPayment.objects.values('incomeName1','amountOfIncome1')
         d = {
             'income': income,
         }
@@ -62,61 +68,38 @@ class history(View):
 class edit(View):
     
     def get(self, request, *args, **kwargs):
-        # IncomeのModelを作成する
-        modelIncome = Income()
-        # FixedCostのModelを作成する
-        modelFixedCost = FixedCost()
-        # SpFixedCostのModelを作成する
-        modelSpFixedCost = SpFixedCost()
+        # balanceOfPaymentのModelを作成する
+        model = balanceOfPayment()
+        #modelbop2 = balanceOfPayment()
+        #modelbop3 = balanceOfPayment()
 
         #　収入のフォームのインスタンスを作成
-        incomeForm = incomeFormAdd( request.POST, instance = modelIncome)
-        incomeForm2 = incomeFormAdd2( request.POST, instance = modelIncome)
-        incomeForm3 = incomeFormAdd3( request.POST, instance = modelIncome )
-        incomeForm4 = incomeFormAdd4( request.POST, instance = modelIncome )
+        incomeForm = incomeFormAdd( request.POST, instance = model)
         #　固定費のフォームのインスタンス
-        fixedCostForm = fixedCostFormAdd( request.POST, instance = modelFixedCost )
-        fixedCostForm2 = fixedCostFormAdd2( request.POST, instance = modelFixedCost )
+        fixedCostForm = fixedCostFormAdd( request.POST, instance = model )
         # 特別費のフォームのインスタンス
-        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = modelSpFixedCost )
+        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = model )
 
         dict = {
             'formOfIncome' : incomeForm,
-            'formOfIncome2': incomeForm2,
-            'formOfIncome3': incomeForm3,
-            'formOfIncome4': incomeForm4,
             'formOfFixedCost' : fixedCostForm,
-            'formOfFixedCost2': fixedCostForm2,
-            'form3' : SpFixedCostForm,
+            'formOfSpFixedCost' : SpFixedCostForm,
         }
 
         return render(request,'zacklymain/edit.html', dict)
 
     #フォーム入力の保存
     def post(self, request, *args, **kwargs):
-        # IncomeのModelを作成する
-        modelIncome = Income()
-        # FixedCostのModelを作成する
-        modelFixedCost = FixedCost()
-        # SpFixedCostのModelを作成する
-        modelSpFixedCost = SpFixedCost()
 
-        # 収入フォームのインスタンス
-        editForm = incomeFormAdd( request.POST, instance = modelIncome)
-        #　固定費のフォームのインスタンス
-        fixedCostForm = fixedCostFormAdd( request.POST, instance = modelFixedCost )
-        # 特別費のフォームのインスタンス
-        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = modelSpFixedCost )
+        if request.method == 'POST':
+            incomeForm = incomeFormAdd( request.POST)
+            fixedCostForm = fixedCostFormAdd( request.POST )
+            SpFixedCostForm = SpFixedCostFormsAdd( request.POST )
 
-        #バリデーションがOKなら保存する
-        if editForm.is_valid():
-
-            modelIncome = editForm.save(commit = False)
-            modelFixedCost = fixedCostForm.save(commit = False)
-            modelSpFixedCost = SpFixedCostForm.save(commit = False)
-
-            modelIncome.save()
-            modelFixedCost.save()
-            modelSpFixedCost.save()
+            #３つのフォームのバリデーションが全てOKなら保存
+            if incomeForm.is_valid() and fixedCostForm.is_valid() and SpFixedCostForm.is_valid():
+                incomeForm.save()
+                fixedCostForm.save()
+                SpFixedCostForm.save()
 
             return redirect('/main')
