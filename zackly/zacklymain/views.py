@@ -1,105 +1,209 @@
-from django.shortcuts import render, redirect # テンプレートのレンダリングで使う
+from django.shortcuts import render, redirect, get_object_or_404 # テンプレートのレンダリングで使う
 from django.http import HttpResponse
 from django.template import loader
-from datetime import datetime
+from datetime import datetime #日時の表示
+from dateutil.relativedelta import relativedelta #月の加算減算とかで使用する
 from django.views import View # 基本汎用クラスビューで使う
-from zacklymain.models import balanceOfPayment # 定義したモデル
+# 定義したモデル
+from zacklymain.models import balanceOfPayment
 #定義したフォーム
 from zacklymain.forms import incomeFormAdd, fixedCostFormAdd, SpFixedCostFormsAdd
 from django.db.models import Avg, Sum
 
-#　トップページ
+
 class top(View):
-    # 仮で時間を表示してる
-    def get(self, request, *args, **kwargs):
-        d ={
+    """トップページ"""
+    def get(self, request, *args, **kwargs ):
+        """トップページのGET処理"""
+        #ログインした年月を取得して
+        nowMonth=datetime.now().month
+        modelInstance = get_object_or_404(balanceOfPayment, month=nowMonth )
+
+        dict ={
+            'id':modelInstance.month,
+            'modelInstance':modelInstance,
             'hour':datetime.now(),
-        }    
-        #template = loader.get_template('zacklymain/toppage.html')
-        return render(request,'zacklymain/toppage.html', d)
+        }
+
+        return render(request,'zacklymain/toppage.html', dict)
 
 
-#　メインページ
+
 class main(View):
-    def get(self, request, *args, **kwargs):
+    """メインページ"""
+    def get(self, request,  *args, **kwargs ):
+        """メインページのGET処理。TOP⇒Mainの移動時"""
+
+        id= self.kwargs.get('id')
+        modelInstance =get_object_or_404(balanceOfPayment, month=id)
+
+        # それぞれの合計を出す。長いのでこんな書き方になってる。
         # 収入の合計
         sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
         # 固定費の合計
         sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
         # 特別枠の合計
         sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
-        amountOfIncome = balanceOfPayment.objects.aggregate(sx = sx1 - sx2 - sx3 )
-        sumOfAmount = balanceOfPayment.objects.aggregate(sx = sx1 )
-        sumOfFixed = balanceOfPayment.objects.aggregate(sx = sx2 )
-        sumOfSpFixed = balanceOfPayment.objects.aggregate(sx = sx3 ) 
+        amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+        sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+        sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+        sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 ) 
         
-        d = {
-            'month':datetime.now().month,
+        dict={
+            'id':id,
+            'modelInstance':modelInstance,
             'income': amountOfIncome,
             'soa': sumOfAmount,
             'sof': sumOfFixed,
             'sosf': sumOfSpFixed,
-            #'mtu': moneyToUse,
         }
-        #template = loader.get_template('zacklymain/main.html')
-        return render(request,'zacklymain/main.html', d)
+        return render(request,'zacklymain/main.html', dict)
 
-#　履歴ページ
-class history(View):
+class previous(View):
+    """メインページの前月表示"""
     def get(self, request, *args, **kwargs):
-        income = balanceOfPayment.objects.values('incomeName1','amountOfIncome1') 
-        fixedCost = balanceOfPayment.objects.values('fixedCostName1','amountOfFixedCost1')
+        """前月分を表示する"""
+        #　一旦計算してから月だけ抜き出す
+        id= self.kwargs.get('id')-1
+        modelInstance=get_object_or_404(balanceOfPayment, month=id)        
+
+        # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+        # 収入の合計
+        sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+        # 固定費の合計
+        sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+        # 特別枠の合計
+        sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+        amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+        sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+        sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+        sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 ) 
+        
+        dict={
+            'id':id,
+            'modelInstance':modelInstance,
+            #'month':month,
+            'income': amountOfIncome,
+            'soa': sumOfAmount,
+            'sof': sumOfFixed,
+            'sosf': sumOfSpFixed,
+        }
+        return render(request,'zacklymain/main.html', dict)
+
+
+class forward(View):
+    """メインページの次月表示"""
+    def get(self, request,  *args, **kwargs ):
+        """次月分を表示する"""
+        #　idを取得
+        id= self.kwargs.get('id')+1
+        modelInstance = get_object_or_404(balanceOfPayment, month=id)
+
+        # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+        # 収入の合計
+        sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+        # 固定費の合計
+        sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+        # 特別枠の合計
+        sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+        amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+        sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+        sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+        sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 )
+
+        dict={
+            'id':id,
+            'modelInstance':modelInstance,
+            'income': amountOfIncome,
+            'soa': sumOfAmount,
+            'sof': sumOfFixed,
+            'sosf': sumOfSpFixed,
+        }
+        return render(request,'zacklymain/main.html', dict)
+
+
+class history(View):
+    """履歴ページ(必要かはわからない)"""
+    def get(self, request, *args, **kwargs):
+        """履歴ページのGET"""
+        modelInstance = get_object_or_404(balanceOfPayment, month=datetime.now().month)
+
+        income = modelInstance.objects.values('incomeName1','amountOfIncome1') 
+        fixedCost = modelInstance.objects.values('fixedCostName1','amountOfFixedCost1')
         d = {
+            'id':modelInstance.month,
+            'modelInstance':modelInstance,
             'income': income,
             'fixedCost' : fixedCost,
         }
 
-        #template = loader.get_template('zacklymain/history.html')
+
         return render(request,'zacklymain/history.html', d)
 
     def post(self, request, *args, **kwargs):
-        income = balanceOfPayment.objects.values('incomeName1','amountOfIncome1')
+        """履歴ページのPOST（いる？）"""
+
+        modelInstance = get_object_or_404(balanceOfPayment, month=datetime.now().month)
+        income = modelInstance.objects.values('incomeName1','amountOfIncome1')
         d = {
+            'modelInstance':modelInstance,
+            'id':modelInstance.month,
             'income': income,
         }
         return render(request,'zacklymain/history.html', d)
 
 #　入力ページ
 class edit(View):
+    """金額入力ページ"""
     
     def get(self, request, *args, **kwargs):
+        """金額入力ページのGET"""
+        # idを取得する
+        id= self.kwargs.get('id')
         # balanceOfPaymentのModelを作成する
-        model = balanceOfPayment()
-        #modelbop2 = balanceOfPayment()
-        #modelbop3 = balanceOfPayment()
+        modelInstance = get_object_or_404(balanceOfPayment, month=id )
 
-        #　収入のフォームのインスタンスを作成
-        incomeForm = incomeFormAdd( request.POST, instance = model)
-        #　固定費のフォームのインスタンス
-        fixedCostForm = fixedCostFormAdd( request.POST, instance = model )
-        # 特別費のフォームのインスタンス
-        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = model )
+        #　収入,固定費,特別費のフォームのインスタンスを作成
+        incomeForm = incomeFormAdd( request.POST, instance = modelInstance)
+        fixedCostForm = fixedCostFormAdd( request.POST, instance = modelInstance )
+        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance = modelInstance )
 
         dict = {
-            'formOfIncome' : incomeForm,
-            'formOfFixedCost' : fixedCostForm,
-            'formOfSpFixedCost' : SpFixedCostForm,
+            'id':modelInstance.month,
+            'modelInstance':modelInstance,
+            'formOfIncome' : incomeFormAdd(instance=modelInstance),
+            'formOfFixedCost' : fixedCostFormAdd(instance=modelInstance),
+            'formOfSpFixedCost' : SpFixedCostFormsAdd(instance=modelInstance),
         }
 
         return render(request,'zacklymain/edit.html', dict)
 
     #フォーム入力の保存
     def post(self, request, *args, **kwargs):
+        #データのIDで取得するよー
+        id= self.kwargs.get('id')
+        modelInstance = get_object_or_404(balanceOfPayment, month=id)
 
-        if request.method == 'POST':
-            incomeForm = incomeFormAdd( request.POST)
-            fixedCostForm = fixedCostFormAdd( request.POST )
-            SpFixedCostForm = SpFixedCostFormsAdd( request.POST )
+        incomeForm = incomeFormAdd( request.POST, instance=modelInstance)
+        fixedCostForm = fixedCostFormAdd( request.POST, instance=modelInstance)
+        SpFixedCostForm = SpFixedCostFormsAdd( request.POST, instance=modelInstance)
 
-            #３つのフォームのバリデーションが全てOKなら保存
-            if incomeForm.is_valid() and fixedCostForm.is_valid() and SpFixedCostForm.is_valid():
-                incomeForm.save()
-                fixedCostForm.save()
-                SpFixedCostForm.save()
+        #３つのフォームのバリデーションが全てOKなら保存
+        if incomeForm.is_valid() and fixedCostForm.is_valid() and SpFixedCostForm.is_valid():
+            incomeForm = incomeForm.save(commit=False)
+            fixedCostForm = fixedCostForm.save(commit=False)
+            SpFixedCostForm = SpFixedCostForm.save(commit=False)
+            incomeForm.save()
+            fixedCostForm.save()
+            SpFixedCostForm.save()
+            #リダイレクトは'app_name:pathname'で指定しないと
+            return redirect('zacklymain:main', id=id)
 
-            return redirect('/main')
+        dict={
+            'id':modelInstance.month,
+            'modelInstance': modelInstance,
+            'formOfIncome' : incomeFormAdd(instance=modelInstance),
+            'formOfFixedCost' : fixedCostFormAdd(instance=modelInstance),
+            'formOfSpFixedCost' : SpFixedCostFormsAdd(instance=modelInstance),
+        }
+        return render(request,'zacklymain:main', dict)

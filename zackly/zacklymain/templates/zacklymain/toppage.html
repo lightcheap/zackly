@@ -51,9 +51,9 @@
     </div>
     <div class="container">
         <div class = "row signUp">
-            <div class="col"><p><a href ="{% url 'zacklymain:main' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p></div>
-            <div class="col"><p><a href ="{% url 'zacklymain:history' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p></div>
-        </div>
+            <div class="col"><p><a href ="{% url 'zacklymain:history' id %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p></div>
+            <div class="col"><p><a href ="{% url 'zacklymain:main' id %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p></div>
+        </div>  
     </div>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

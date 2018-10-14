@@ -26,7 +26,7 @@
                     <hr>
                     <h4 id = "syunyu">収入</h4>
                     
-                    <form action ="/edit/" method = "POST">
+                    <form action ="{% url 'zacklymain:edit' id %}" method = "POST">
                         {% csrf_token %}
                         {{ formOfIncome.as_p }}
                     
@@ -57,7 +57,7 @@
                 <div class = "editGlobalMenu"><a href="#syunyu">収入</a></div>
                 <div class = "editGlobalMenu"><a href="#kotei">固定</a></div>
                 <div class = "editGlobalMenu"><a href="#tokubetu">特別</a></div>
-                <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' %}">保存</a></div>
+                <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' id %}">保存</a></div>
                 
             </div>                    
         </div>

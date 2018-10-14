@@ -18,9 +18,9 @@
     <div class="container">
         <div class="row">
             <div class="mainTopMonth">
-                <div class="col4 frontAndBackB"><a><span class = "fabButton">＜</span></a></div>
-                <div class="col4"><h1>{{ month }}月</h1></div>
-                <div class="col4 frontAndBackF"><a><span class = "fabButton">＞</span></a></div>
+                <div class="col4 frontAndBackB"><a href ="{% url 'zacklymain:previous' id %}"><span class = "fabButton">＜</span></a></div>
+                <div class="col4"><h1>{{ id }}月</h1></div>
+                <div class="col4 frontAndBackF"><a href ="{% url 'zacklymain:forward' id %}"><span class = "fabButton">＞</span></a></div>
             </div>            
         </div>
     </div>
@@ -31,7 +31,7 @@
     <hr class = "myhr">    
     <div class = "balanceSheet">
         <div>
-            <a class = "editbutton" href ="{% url 'zacklymain:edit' %}"><i class="far fa-edit fa-2x editAmount"></i></a>
+            <a class = "editbutton" href ="{% url 'zacklymain:edit' id %}"><i class="far fa-edit fa-2x editAmount"></i></a>
             <h3>収入 合計<span class = "mainZacklyButtom">Zackly</span></h3>
             <p class = "totalIncome">{{ soa.sx }} 円</p>                 
             
@@ -49,7 +49,7 @@
             {% endif %}
         </div>
     </div>
-    <p><a href ="{% url 'zacklymain:history' %}">履歴ページ</a></p>
+    <p><a href ="{% url 'zacklymain:history' id %}">履歴ページ</a></p>
     <a href ="{% url 'zacklymain:toppage' %}">トップページ</a>
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
