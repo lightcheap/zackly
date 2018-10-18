@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404 # テンプレ�
 from django.http import HttpResponse
 from django.template import loader
 from datetime import datetime #日時の表示
-from dateutil.relativedelta import relativedelta #月の加算減算とかで使用する
 from django.views import View # 基本汎用クラスビューで使う
 # 定義したモデル
 from zacklymain.models import balanceOfPayment
@@ -15,7 +14,7 @@ class top(View):
     """トップページ"""
     def get(self, request, *args, **kwargs ):
         """トップページのGET処理"""
-        #ログインした年月を取得して
+        #ログインした年月を取得。最初だけは当月を表示するので
         nowMonth=datetime.now().month
         modelInstance = get_object_or_404(balanceOfPayment, month=nowMonth )
 
@@ -64,31 +63,65 @@ class previous(View):
     def get(self, request, *args, **kwargs):
         """前月分を表示する"""
         #　一旦計算してから月だけ抜き出す
-        id= self.kwargs.get('id')-1
-        modelInstance=get_object_or_404(balanceOfPayment, month=id)        
+        #id= self.kwargs.get('id')-1
+        #modelInstance=get_object_or_404(balanceOfPayment, month=id)
 
-        # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
-        # 収入の合計
-        sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
-        # 固定費の合計
-        sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
-        # 特別枠の合計
-        sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
-        amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
-        sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
-        sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
-        sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 ) 
+        # データがないページを指定したら、する前のページで止まる（再表示する）ようにしたい
+        try:
+            id=self.kwargs.get('id')-1
+            modelInstance=balanceOfPayment.objects.get(month=id)
+
+        except balanceOfPayment.DoesNotExist:
+            id=self.kwargs.get('id')
+            modelInstance=get_object_or_404(balanceOfPayment, month=id)
+
+            # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+            # 収入の合計
+            sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+            # 固定費の合計
+            sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+            # 特別枠の合計
+            sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+            amountOfIncome=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+            sumOfAmount=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+            sumOfFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+            sumOfSpFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 )
+
+            dict={
+                'id':id,
+                'modelInstance':modelInstance,
+                'income': amountOfIncome,
+                'soa': sumOfAmount,
+                'sof': sumOfFixed,
+                'sosf': sumOfSpFixed,
+            }
+
+            return render(request,'zacklymain/main.html',dict)
+
+        else:
+            
+            # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+            # 収入の合計
+            sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+            # 固定費の合計
+            sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+            # 特別枠の合計
+            sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+            amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+            sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+            sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+            sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 ) 
         
-        dict={
-            'id':id,
-            'modelInstance':modelInstance,
-            #'month':month,
-            'income': amountOfIncome,
-            'soa': sumOfAmount,
-            'sof': sumOfFixed,
-            'sosf': sumOfSpFixed,
-        }
-        return render(request,'zacklymain/main.html', dict)
+            dict={
+                'id':id,
+                'modelInstance':modelInstance,
+                #'month':month,
+                'income': amountOfIncome,
+                'soa': sumOfAmount,
+                'sof': sumOfFixed,
+                'sosf': sumOfSpFixed,
+            }
+            return render(request,'zacklymain/main.html', dict)
 
 
 class forward(View):
@@ -96,30 +129,63 @@ class forward(View):
     def get(self, request,  *args, **kwargs ):
         """次月分を表示する"""
         #　idを取得
-        id= self.kwargs.get('id')+1
-        modelInstance = get_object_or_404(balanceOfPayment, month=id)
+        #id= self.kwargs.get('id')+1
+        #modelInstance = get_object_or_404(balanceOfPayment, month=id)
 
-        # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
-        # 収入の合計
-        sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
-        # 固定費の合計
-        sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
-        # 特別枠の合計
-        sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
-        amountOfIncome = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
-        sumOfAmount = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
-        sumOfFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
-        sumOfSpFixed = balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 )
+        # データがないページを指定したら、する前のページで止まる（再表示する）ようにしたい
+        try:
+            id= self.kwargs.get('id')+1
+            modelInstance=balanceOfPayment.objects.get(month=id)
+        except balanceOfPayment.DoesNotExist:
+            id= self.kwargs.get('id')
+            modelInstance=get_object_or_404(balanceOfPayment, month=id)
 
-        dict={
-            'id':id,
-            'modelInstance':modelInstance,
-            'income': amountOfIncome,
-            'soa': sumOfAmount,
-            'sof': sumOfFixed,
-            'sosf': sumOfSpFixed,
-        }
-        return render(request,'zacklymain/main.html', dict)
+            # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+            # 収入の合計
+            sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+            # 固定費の合計
+            sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+            # 特別枠の合計
+            sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+            amountOfIncome=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+            sumOfAmount=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+            sumOfFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+            sumOfSpFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 )
+
+            dict={
+                'id':id,
+                'modelInstance':modelInstance,
+                'income': amountOfIncome,
+                'soa': sumOfAmount,
+                'sof': sumOfFixed,
+                'sosf': sumOfSpFixed,
+            }
+
+            return render(request,'zacklymain/main.html',dict)
+        
+        else:
+
+            # 選んだ月のそれぞれの合計を出す。長いのでこんな書き方になってる。
+            # 収入の合計
+            sx1 = Sum('amountOfIncome1') + Sum('amountOfIncome2') + Sum('amountOfIncome3') + Sum('amountOfIncome4')
+            # 固定費の合計
+            sx2 = Sum('amountOfFixedCost1') + Sum('amountOfFixedCost2') + Sum('amountOfFixedCost3') + Sum('amountOfFixedCost4')
+            # 特別枠の合計
+            sx3 = Sum('amountOfSpFixedCost1') + Sum('amountOfSpFixedCost2') + Sum('amountOfSpFixedCost3') + Sum('amountOfSpFixedCost4')
+            amountOfIncome=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 - sx2 - sx3 )
+            sumOfAmount=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx1 )
+            sumOfFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx2 )
+            sumOfSpFixed=balanceOfPayment.objects.filter(month=id).aggregate(sx = sx3 )
+
+            dict={
+                'id':id,
+                'modelInstance':modelInstance,
+                'income': amountOfIncome,
+                'soa': sumOfAmount,
+                'sof': sumOfFixed,
+                'sosf': sumOfSpFixed,
+            }
+            return render(request,'zacklymain/main.html', dict)
 
 
 class history(View):

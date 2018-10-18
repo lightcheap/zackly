@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.shortcuts import render
 from django.views import View
 
@@ -8,6 +8,7 @@ app_name = 'zacklymain'
 urlpatterns = [
     #TOPページ
     path('', views.top.as_view(), name='toppage'),
+    
     #TOP⇒MAINページ、EDITページからのリダイレクト
     path('main/<int:id>/', views.main.as_view(), name='main'),
     #前月に行く用

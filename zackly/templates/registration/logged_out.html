@@ -1,0 +1,10 @@
+<!--ログアウト画面用-->
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<h1>ログアウトしました。</h1>
+<p>ご利用、ありがとうございました。</p>
+<p><a href="{% url 'login' %}">再度ログインする</a></p>
+{% endblock %}
