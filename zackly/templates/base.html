@@ -15,12 +15,12 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}" class="logout">Logout</a></li>
+                <li><a href="{% url 'logout' %}" class="logout">ログアウト</a></li>
                 {% else %}
-                <li><a href="{% url 'accounts:signup' %}" class="signup">Sign up</a></li>
-                <li><a href="{% url 'login' %}" class="login">Login</a></li>
+                <li><a href="{% url 'accounts:signup' %}" class="signup">新規作成</a></li>
+                <li><a href="{% url 'login' %}" class="login">ログイン</a></li>
                 {% endif %}
-                <li><a href="{% url 'blogs:create' %}" class="act">Add Post</a></li>
+                <li><a href="{% url 'zacklymain:toppage' %}" class="act">TOPへ</a></li>
             </ul>
         </nav>
     </header>
