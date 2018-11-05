@@ -22,9 +22,10 @@
         <div class = "globalManuPC">
             <img class = "spLogo" src = "{% static 'zacklymain/Zacklyロゴ.png' %}"/>
             <ul class = "spHidden">
-            <li><a>新規作成(g)</a></li>
-            <li><a>ログイン(g)</a></li>
-            </ul>           
+            <li class = "spHiddenline"><a href ="{% url 'accounts:signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></li>
+            <li class = "spHiddenline"><a href ="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></li>
+            </ul>
+            <p class="TOPBETA">制作途中版</p>
         </div>
     </div>
     <div class = "container serviceOverView">
@@ -32,24 +33,32 @@
         <h3 class = "description spSpace">家賃、電気代など<br>残す必要のあるお金以外の<br>使えるお金をカンタンに<br>知ることが出来るサービスです。</h3>
     </div>
     <!--ZACKLYの３つの特徴-->
-    <div class="container">
+    <div class="container threeContents">
         <div class = "subjectTop">
             <h2>ZACKLY の特徴</h2>
         </div>
-        <div class = "threeFuture">
-            <h3>とにかく、シンプル。</h3>
-            <p>説明文説明文</p>
-        </div>
-        <div class = "threeFuture">
-            <h3>2つ目の特徴</h3>
-            <p>説明文説明文</p>
-        </div>
-        <div class = "threeFuture">
-            <h3>3つ目の特徴</h3>
-            <p>説明文説明文</p>
-        </div>
+        <div class="row">
+                <div class="col-md-4 threeFuture">
+                    <div class="threeFuturein">
+                        <h4 class="FutureTop">とにかく、シンプル。</h4>
+                        <p class="explanatoryText">従来の家計簿アプリのように、細かく収支をつけて経済状況を把握するのではなく、月々の収支をざっくり把握するサービス（？）です。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 threeFuture">
+                    <div class="threeFuturein">
+                        <h4 class="FutureTop">次月の収支を予測。<br>(未実装)</h4>
+                        <p class="explanatoryText">継続して使っていくことで、次月の収支をざっくり予測して入力の手間を省きます。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 threeFuture">
+                    <div class="threeFuturein">
+                        <h4 class="FutureTop">3つ目の特徴</h4>
+                        <p class="explanatoryText">--COMING SOON--</p>
+                    </div>
+                </div>
+        </div>        
     </div>
-    <div class="container">
+    <div class="container topLoginMenu">
         <div class = "row signUp">
             <div class="col"><p><a href ="{% url 'accounts:signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i> 新規作成</a></p></div>
             <div class="col"><p><a href ="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i> ログイン</a></p></div>

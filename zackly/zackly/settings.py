@@ -128,4 +128,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # ログイン後に一旦トップにリダイレクトする
-LOGIN_REDIRECT_URL = '/'
+#LOGIN_REDIRECT_URL ='zacklymain:main'

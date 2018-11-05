@@ -11,7 +11,10 @@
 <body>
 <div class="basecontainer">
     <header>
-        <p class="site-name"><a href="{% url 'zacklymain:toppage' %}">Zackly</a></p>
+        <div class="loginTop">
+            <h1 class="siteName"><a href="{% url 'zacklymain:toppage' %}">Zackly</a></h1>
+        </div>
+        <div class="loginoutContents">
         <nav>
             <ul>
                 {% if user.is_authenticated %}
@@ -23,6 +26,7 @@
                 <li><a href="{% url 'zacklymain:toppage' %}" class="act">TOPへ</a></li>
             </ul>
         </nav>
+        </div>
     </header>
     <div class="content">
         {% block content %}{% endblock %}

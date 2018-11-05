@@ -46,7 +46,7 @@
                         {% csrf_token %}
                         {{ formOfSpFixedCost.as_p }}
                         
-                        <input type = "submit" value = "保存">
+                        <a class="submitbutton"><input class="submitAmount" type="submit" value="保存"></a>
                         </form>
                 </div><!--特別枠ここまで-->
             </div>
@@ -57,7 +57,7 @@
                 <div class = "editGlobalMenu"><a href="#syunyu">収入</a></div>
                 <div class = "editGlobalMenu"><a href="#kotei">固定</a></div>
                 <div class = "editGlobalMenu"><a href="#tokubetu">特別</a></div>
-                <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' id %}">保存</a></div>
+                <div class = "editGlobalMenu"><a href = "{% url 'zacklymain:main' id %}">戻る</a></div>
                 
             </div>                    
         </div>

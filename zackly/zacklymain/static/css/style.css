@@ -1,0 +1,53 @@
+/*login,logout用　*/
+
+ul{
+    list-style: none;
+    padding-inline-start: 0px;
+}
+
+body{
+    margin: 0px 0px;
+}
+
+h1{
+    font-weight: 400;    
+}
+
+.container{
+    text-align: center;
+}
+
+.basecontainer{
+    
+    text-align: center;
+}
+
+.loginTop{
+    text-align: center;
+    background-color:#4CAF50;
+}
+
+.loginTop a{
+    text-decoration: none;
+    font-size: 1.3em;
+}
+.siteName{
+    margin: 0px 0px;
+}
+
+.loginForm{
+    display: inline-block;
+}
+
+.loginButton{
+    margin:30px;
+    padding:15px 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    background-color: orange;
+    border-radius:40px;
+}
+
+.loginoutContents{
+    padding: 5px;
+}

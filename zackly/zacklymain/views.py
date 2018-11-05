@@ -14,23 +14,23 @@ class top(View):
     """トップページ"""
     def get(self, request, *args, **kwargs ):
         """トップページのGET処理"""
-        #ログインした年月を取得。最初だけは当月を表示するので
-        nowMonth=datetime.now().month
-        modelInstance = get_object_or_404(balanceOfPayment, month=nowMonth )
+        #ログインした年月を取得しておく。最初だけは当月を表示するので
+        nowYear = datetime.now().year
+        nowMonth = datetime.now().month
+        #modelInstance=get_object_or_404(balanceOfPayment, month=nowMonth )
 
-        dict ={
-            'id':modelInstance.month,
-            'modelInstance':modelInstance,
-            'hour':datetime.now(),
+        dict={
+        #    'id':modelInstance.month,
+        #    'modelInstance':modelInstance,
+        #    'hour':datetime.now(),
         }
-
         return render(request,'zacklymain/toppage.html', dict)
 
 
 
 class main(View):
     """メインページ"""
-    def get(self, request,  *args, **kwargs ):
+    def get(self, request, *args, **kwargs ):
         """メインページのGET処理。TOP⇒Mainの移動時"""
 
         id= self.kwargs.get('id')
@@ -133,9 +133,12 @@ class forward(View):
         #modelInstance = get_object_or_404(balanceOfPayment, month=id)
 
         # データがないページを指定したら、する前のページで止まる（再表示する）ようにしたい
+        # ⇒データがないページを指定したら新しく作成する
+        #try内は idに+1してそのidに合致したデータがでてくるか
         try:
             id= self.kwargs.get('id')+1
             modelInstance=balanceOfPayment.objects.get(month=id)
+        #データがない場合、新しく作成する
         except balanceOfPayment.DoesNotExist:
             id= self.kwargs.get('id')
             modelInstance=get_object_or_404(balanceOfPayment, month=id)
@@ -192,19 +195,10 @@ class history(View):
     """履歴ページ(必要かはわからない)"""
     def get(self, request, *args, **kwargs):
         """履歴ページのGET"""
-        modelInstance = get_object_or_404(balanceOfPayment, month=datetime.now().month)
-
-        income = modelInstance.objects.values('incomeName1','amountOfIncome1') 
-        fixedCost = modelInstance.objects.values('fixedCostName1','amountOfFixedCost1')
-        d = {
-            'id':modelInstance.month,
-            'modelInstance':modelInstance,
-            'income': income,
-            'fixedCost' : fixedCost,
+        dict = {
+            
         }
-
-
-        return render(request,'zacklymain/history.html', d)
+        return render(request,'zacklymain/history.html', dict)
 
     def post(self, request, *args, **kwargs):
         """履歴ページのPOST（いる？）"""
@@ -273,3 +267,18 @@ class edit(View):
             'formOfSpFixedCost' : SpFixedCostFormsAdd(instance=modelInstance),
         }
         return render(request,'zacklymain:main', dict)
+
+class create(View):
+    """新規作成"""
+    def get(self, request, *args, **kwargs):
+        
+        nextMonth=datetime.now().month + 1
+        createmodel = balanceOfPayment()
+        createmodel.month = nextMonth
+
+        dict={
+            'createmodel':createmodel,
+            'id':createmodel.month,
+
+        }
+        return render(request,'zacklymain/main.html', dict)

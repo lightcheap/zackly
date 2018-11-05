@@ -18,10 +18,11 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    # Zackly本体
     path('', include('zacklymain.urls')),
     # 認証関連
     path('accounts/', include('accounts.urls')), #サインアップ
     path('accounts/', include('django.contrib.auth.urls')), #ログイン、ログアウト
+    # 管理画面
     path('admin/', admin.site.urls),
-
 ]

@@ -25,32 +25,45 @@
         </div>
     </div>
     <div class = "cuaContainer">
-        <h2>使えるお金<span class = "mainZacklyButtom">Zackly</span></h2>
+        <h2>使えるお金<span class = "mainZacklyButtom"></span></h2>
             <p class = "canUseAmount">{{ income.sx }} 円</p>        
     </div>
     <hr class = "myhr">    
     <div class = "balanceSheet">
         <div>
-            <a class = "editbutton" href ="{% url 'zacklymain:edit' id %}"><i class="far fa-edit fa-2x editAmount"></i></a>
-            <h3>収入 合計<span class = "mainZacklyButtom">Zackly</span></h3>
-            <p class = "totalIncome">{{ soa.sx }} 円</p>                 
-            
+            <h3>収入<span class = "mainZacklyButtom"></span></h3>
+            <p class = "totalIncome">{{ soa.sx }} 円</p>            
         </div>
         <div>
-            <h3>固定支出 合計<span class = "mainZacklyButtom">Zackly</span></h3>
+            <h3>固定支出<span class = "mainZacklyButtom"></span></h3>
             {% if sof %}
                 <p class = "totalFixed">{{ sof.sx }} 円</p>
             {% endif %}
         </div>
         <div>
-            <h3>特別支出 合計<span class = "mainZacklyButtom">Zackly</span></h3>
+            <h3>特別支出<span class = "mainZacklyButtom"></span></h3>
             {% if sosf %}
                 <p class = "totalSp">{{ sosf.sx }} 円</p>
             {% endif %}
         </div>
     </div>
-    <p><a href ="{% url 'zacklymain:history' id %}">履歴ページ</a></p>
-    <a href ="{% url 'zacklymain:toppage' %}">トップページ</a>
+
+    <!--おためし-->
+    <div class="menuContents">
+        <div class="cp_link11">
+            <nav class="cp_link_list">
+            <input type="checkbox" class="cp_open" id="cp_toggle03" />
+            <label class="cp_open_btn" for="cp_toggle03">menu
+                <!--<i class="fas fa-reply cp_share fa-fw"></i>-->
+            </label>
+            <a class="cp_link toEditPage" href="{% url 'zacklymain:edit' id %}"><i class="far fa-edit fa"></i></a>
+            <a class="cp_link toProfile" href="{% url 'accounts:profile' %}"><i class="far fa-user-circle fa"></i></a>
+            <a class="cp_link logout" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa"></i></a>
+            </nav>
+        </div>
+    </div>
+
+    <!--おためし-->
     <!--bootstrap CDN JS、Popper.js、jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

@@ -7,7 +7,7 @@ class balanceOfPayment(models.Model):
     """収入、固定費、特別費をまとめた"""
     #収入の項目は4セット
     #incomeName = 収入の名目　/　amountOfIncome = 収入の金額
-    #precisely = 金額が正確かどうか(ざっくりー or NOTざっくりー)
+    #precisely = 金額が正確かどうか(ざっくりー or NOTざっくりー)    
 
     createdAt = models.DateTimeField(
         verbose_name = '登録日',
@@ -151,5 +151,8 @@ class balanceOfPayment(models.Model):
     spFixedCostName5 = models.CharField(verbose_name = '特別費5', max_length = 30, default = " ", blank = True, null = True) 
     amountOfSpFixedCost5 = models.IntegerField(verbose_name = '特別費金額5', default = 0, blank = True, null = True)
     #----------------------------------------------
+    #これ入れるとmodels.pyのobject有りませんエラーがなくなる
+    objects = models.Manager()
+
     def __str__(self):
         return str(self.month)
