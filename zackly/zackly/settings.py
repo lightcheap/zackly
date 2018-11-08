@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ovb!a$4envs+_fma61$@l=zyt7ggybs7)2#rby3f7=0*u*9l8r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# デプロイするためにFalseにしてます。
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -129,3 +130,13 @@ STATIC_URL = '/static/'
 
 # ログイン後に一旦トップにリダイレクトする
 #LOGIN_REDIRECT_URL ='zacklymain:main'
+
+# 開発環境用ファイルの読み込み
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())
